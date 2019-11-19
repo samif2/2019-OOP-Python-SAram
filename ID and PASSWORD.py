@@ -2,16 +2,17 @@ import pickle, sys, time
 
 ID = ''
 PASSWORD = ''
-####
 def setinform():
     global ID, PASSWORD
-    IDf = open('idf', 'rb')
-    PWf = open('pwf', 'rb')
-    ID = pickle.load(IDf)
-    PASSWORD = pickle.load(PWf)
-    IDf.close()
-    PWf.close()
-
+    try:
+        IDf = open('idf', 'rb')
+        PWf = open('pwf', 'rb')
+        ID = pickle.load(IDf)
+        PASSWORD = pickle.load(PWf)
+        IDf.close()
+        PWf.close()
+    except:
+        pass
 
 setinform()
 while True:
@@ -28,7 +29,7 @@ while True:
         if ID == '':
             print("ID와 PASSWORD가 설정되지 않았습니다.")
         else:
-            print("ID :", ID,  "\n PASSORD :", PASSWORD)
+            print("ID :", ID,  "\nPASSORD :", PASSWORD)
 
     elif command == 'setting':
         IDF = open('idf', 'wb')
