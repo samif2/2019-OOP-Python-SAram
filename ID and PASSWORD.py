@@ -2,7 +2,7 @@ import pickle, sys, time
 
 ID = ''
 PASSWORD = ''
-###
+####
 def setinform():
     global ID, PASSWORD
     IDf = open('idf', 'rb')
