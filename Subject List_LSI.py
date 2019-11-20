@@ -1,4 +1,3 @@
-
 def Sort_Subject(sub):
     """
 
@@ -9,11 +8,11 @@ def Sort_Subject(sub):
     sub_list_2 = []
     for i in range(len(sub_list_1)):
         j = sub_list_1[i]
-        if i == len(sub_list_1)-1:
+        if i == len(sub_list_1) - 1:
             sub_list_2 += [j]
             break
         blank_list = []
-        if i==0:
+        if i == 0:
             blank_list += [j.split("[")[0]]
         else:
             blank_list += [j.split("[")[0][0:5], j.split("[")[0][6:]]
@@ -22,12 +21,12 @@ def Sort_Subject(sub):
 
     # print(sub_list_2)
 
-    sub_list_3 =[]
+    sub_list_3 = []
 
-    for i in range(len(sub_list_2)//4):
+    for i in range(len(sub_list_2) // 4):
         blank_list = []
         for j in range(4):
-            blank_list += [sub_list_2[i*4+j].strip()]
+            blank_list += [sub_list_2[i * 4 + j].strip()]
         sub_list_3.append(blank_list)
 
     # print(sub_list_3)

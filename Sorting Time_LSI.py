@@ -93,8 +93,6 @@ def Sort_Time(year=2019, month=None, day=None, day_name=None, hour=None, minute=
     else:
         answer.append(0)
 
-    print(answer)
-
 
 if __name__ == "__main__":
     Sort_Time(year=2019, month=11, day=18, hour=12, minute=35)
