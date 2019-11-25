@@ -1,26 +1,22 @@
 import pickle
 import sys
-ID = None
-PASSWORD = None
+datalist = {'ID': None, 'Password': None, 'logsys': 'sign_in'}
 
 
 def load_info():  # 파일에서 아이디랑 비밀번호 정보를 불러옴
-    global ID, PASSWORD
+    global datalist
     try:
-        idf = open('idf', 'rb')
-        pwf = open('pwf', 'wb')
-        ID = pickle.load(idf)
-        PASSWORD = pickle.load(pwf)
-        idf.close()
-        pwf.close()
+        file = open('MainData', 'rb')
+        datalist = pickle.load(file)
+        file.close()
 
     except:
         pass
 
 
-def dump_info(string, file):  # 파일에 정보 업로드
-    a_file = open(file, 'wb')
-    pickle.dump(string, a_file)
+def dump_info(datas):  # 파일에 정보 업로드
+    a_file = open('MainData', 'wb')
+    pickle.dump(datas, a_file)
     a_file.close()
 
 
@@ -36,37 +32,38 @@ def print_help():  # 설명서 출력
 
 
 def setting():  # 아이디와 비밀번호를 변경하여 내장파일에 저장하는 함수
-    set_id = input("설정하고자 하는 ID를 입력해주세요 : ")
-    set_pw = input("설정하고자 하는 PASSWORD를 입력해주세요 : ")
-    dump_info(set_id, 'idf')
-    dump_info(set_pw, 'pwf')
+    global datalist
+    datalist['ID'] = input("설정하고자 하는 ID를 입력해주세요 : ")
+    datalist['Password'] = input("설정하고자 하는 PASSWORD를 입력해주세요 : ")
+    print("ID와 PASSWORD 의 설정이 완료되었습니다.")
 
 
 def gmail():  # 로그인 방식을 gmail로 바꾸는 함수
-    btn = 'btn.flat'
+    datalist['logsys'] = 'btn.flat'
     print("로그인 방식이 gmail로 설정되었습니다.")
 
 
 def sign_in():  # 로그인 방식을 sign_으로 바꾸는 함수
-    btn = 'btn.info'
+    datalist['logsys'] = 'btn.info'
     print("로그인 방식이 기본방식으로 설정되었습니다.")
 
 
 def check():  # 아이디와 비밀번호 확인 함수
-    if ID is None:
+    if datalist['ID'] is None:
         print("ID와 PASSWORD가 설정되지 않았습니다.")
     else:
-        print("ID :", ID, "\nPASSWORD :", PASSWORD)
+        print("ID :", datalist['ID'], "\nPASSWORD :", datalist['Password'])
 
 
 def reset():  # 프로그램 내 저장되어있는 아이디와 비밀번호를 초기화하는 함수
-    dump_info(None, 'idf')
-    dump_info(None, 'pwf')
+    datalist['ID'] = None
+    datalist['Password'] = None
     print("ID와 PASSWORD의 초기화가 완료되었습니다.")
 
 
 def exit():  # 프로그램을 종료시키는 함수
     print("프로그램을 종료합니다.")
+    dump_info(datalist)
     sys.exit(0)
 
 
@@ -83,12 +80,11 @@ commandlist = {'help': print_help, 'setting': setting, 'check': check,
 
 
 if __name__ == '__main__':
+    load_info()
     while True:
         command = input('>')
-        print(command)
         try:
             func = commandlist[command]
             func()
         except KeyError:
             print("해당하는 명령어가 없습니다.")
-
