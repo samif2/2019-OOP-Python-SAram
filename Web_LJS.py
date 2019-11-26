@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 
 def log_in(user_id, user_password):
+    # 사용자의 달빛학사 id와 비밀번호를 입력받는다
 
     # chromedriver의 위치를 path에 저장한다
     path = "C:/Users/pc/Downloads/chromedriver_win32 (1)/chromedriver.exe"
@@ -20,12 +21,16 @@ def log_in(user_id, user_password):
     time.sleep(2)
 
 def is_free(target_name, time):
+    # 타겟의 이름과 현재 시각을 x-y로 변환한 값을 입력받는다
     # 해당 시간에 타겟이 공강인지 판별하여 공강이면 'True'를 아니면 'False'를 return 한다
-    # 공강시간검색 창으로 이동
+    # 공강시간검색 창으로 이동하여 사람의 이름을 입력한다
+    # 동명이인인 김도현(3학년/1학년)에 대한 예외처리 필요
+
     time.sleep(2)
     driver.get('https://go.sasa.hs.kr/timetable/dup')
     # 타겟의 이름을 입력한다
     write_name = driver.find_element_by_class_name('form-control')
+    time.sleep(1)
     write_name.send_keys(target_name)
     time.sleep(2)
     write_name.send_keys(Keys.ARROW_DOWN)
@@ -42,5 +47,15 @@ def is_free(target_name, time):
     else:
         # 공강이므로 True 를 return 한다
         return True
+
+def import_timeteble(grade, time):
+    # 타겟의 학년과 현재 시각을 x-y로 변환한 값을 입력받는다
+    table_time = 'time'+time
+    driver.get('https://go.sasa.hs.kr/timetable/search_new/all/2')
+    classes = [
+        element.text.strip()
+        for element in driver.find_elements_by_id(table_time)
+    ]
+    return classes
 
 
