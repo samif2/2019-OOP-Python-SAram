@@ -51,3 +51,13 @@ class ControlTower:
 def Auto_Login(datalist):  # 파싱을 통해 창을 열지않고 로그인하여 접속
     pass
 
+
+# ControlTower 사용예시
+if __name__ == '__main__':
+    CT = ControlTower(webdriver.Chrome('chromedriver.exe'))
+    CT.get('https://go.sasa.hs.kr')
+
+    CT.finding(element='name', inform='id', after='send', afterinform='1897', sec=1)
+    CT.finding(element='name', inform='passwd', after='send', afterinform='robin2001!', sec=1)
+    CT.finding(element='c_name', inform='btn.info', after='click', sec=0)
+    # 아이디 입력하고 1초 기다림 + 비밀번호 입력하고 1초 기다림 + 로그인
