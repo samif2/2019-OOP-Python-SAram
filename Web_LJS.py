@@ -51,7 +51,12 @@ def is_free(target_name, time):
 def import_timeteble(grade, time):
     # 타겟의 학년과 현재 시각을 x-y로 변환한 값을 입력받는다
     table_time = 'time'+time
-    driver.get('https://go.sasa.hs.kr/timetable/search_new/all/2')
+
+    if grade == 1:
+        driver.get('https://go.sasa.hs.kr/timetable/search_new/all/1')
+    else:
+        driver.get('https://go.sasa.hs.kr/timetable/search_new/all/2')
+
     classes = [
         element.text.strip()
         for element in driver.find_elements_by_id(table_time)
