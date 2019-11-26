@@ -55,6 +55,11 @@ def Main():
     Menu_list = ["1. 교시 입력", "2. 시간(시 분) 입력"]
     Answer = Get_integer_Answer(Question, Menu_list, 2)
 
+    if Answer == 1:
+        pass
+    else:
+        pass
+
     # 다시 이름을 받을 것인지 묻는 부분
 
 
