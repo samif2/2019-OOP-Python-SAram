@@ -37,6 +37,8 @@ print("=" * 20)
 
 
 def Main():
+    print("찾고자 하는 학생의 학년을 입력하세요.")
+    student_grade = input('>')
     print("찾고자 하는 학생의 이름을 입력하세요.")
     student_name = input(">")
 
@@ -47,7 +49,7 @@ def Main():
     # if check_right_name is True:
 
     print("찾고자 하는 날자를 입력하세요.")
-    print("(년도 월 일 순서 입력)")
+    print("(입력 순서: 년도 월 일)")
     date = input('>')
     # 입력 처리 필요
 
