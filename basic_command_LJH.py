@@ -39,7 +39,7 @@ def setting():  # 아이디와 비밀번호를 변경하여 내장파일에 저�
 
 
 def gmail():  # 로그인 방식을 gmail로 바꾸는 함수
-    datalist['logsys'] = 'btn.flat'
+    datalist['logsys'] = 'gmail'
 
     print("로그인 방식을 gmail로 설정하기 위해 구글 이메일과 비밀번호를 저장합니다")
     datalist['gID'] = input("구글 이메일을 입력해주세요 : ")
@@ -49,7 +49,7 @@ def gmail():  # 로그인 방식을 gmail로 바꾸는 함수
 
 
 def sign_in():  # 로그인 방식을 sign_으로 바꾸는 함수
-    datalist['logsys'] = 'btn.info'
+    datalist['logsys'] = 'sign_in'
     reset('reset_gmail')
     print("로그인 방식이 기본방식으로 설정되었습니다.")
 
@@ -65,10 +65,10 @@ def check():  # 아이디와 비밀번호 확인 함수
               "\nsasa gmail PASSWORD :", datalist['gPassword'])
 
 
-def reset(gmail=None):  # 프로그램 내 저장되어있는 아이디와 비밀번호를 초기화하는 함수
+def reset(gmails=None):  # 프로그램 내 저장되어있는 아이디와 비밀번호를 초기화하는 함수
     datalist['gID'] = None
     datalist['gPassword'] = None
-    if gmail == 'reset_gmail':  # gmail정보 '만'  삭제할경우
+    if gmails == 'reset_gmail':  # gmail정보 '만'  삭제할경우
         return
 
     datalist['ID'] = None  # 아니라면 일반적인 초기화 마저 진행
