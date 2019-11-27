@@ -54,7 +54,7 @@ while check_Main is True:
     Main()
     Question_check = "다른 사람을 입력하겠습니까?"
     Answer_check = ["1. yes", "2. no"]
-    check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check, range_num=2)
+    check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check)
     if check_Main == 1:
         check_Main = True
     else:
