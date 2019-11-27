@@ -43,11 +43,19 @@ def Main():
     else:
         pass
 
-    Get_Answers_for_Student(Subject_list)
+    # Web 파일 중 공강인지 아닌지 알아봄
+    # 공강이라면 (시간, 학년에 맞춰서) 도서관 혹은 공강실 등을 출력하고 종료 (return)
 
-    # 다시 이름을 받을 것인지 묻는 부분
+    Get_Answers_for_Student(Student_name=student_name, Subject_list=Subject_list)
 
 
 check_Main = True
 while check_Main is True:
-    check_Main = Main()
+    Main()
+    Question_check = "다른 사람을 입력하겠습니까?"
+    Answer_check = ["1. yes", "2. no"]
+    check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check, range_num=2)
+    if check_Main == 1:
+        check_Main = True
+    else:
+        check_Main = False
