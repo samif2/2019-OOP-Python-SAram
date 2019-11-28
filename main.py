@@ -6,28 +6,7 @@ Main 이전에 사용자의 id와 pw를 받아, 여러 번 id, pw 를 받을 필
 
 import SortingTime_LSI
 import SortingTime_LSI
-
-
-def Get_integer_Answer(Question, menu_list, range_num):
-
-    print(Question)
-
-    for menu in menu_list:
-        print(menu)
-    while True:
-        Answer = input('>')
-
-        try:
-            Answer = int(Answer)
-        except:
-            print("잘못된 입력입니다. 다시 입력하세요.")
-            continue
-
-        if 0 < Answer <= range_num:
-            return Answer
-
-        print("잘못된 입력입니다. 다시 입력하세요.")
-
+from main_Functions import *
 
 print("Welcome! to our Program")
 print("Made by 'Saram' in 2019")
@@ -57,14 +36,26 @@ def Main():
     Menu_list = ["1. 교시 입력", "2. 시간(시 분) 입력"]
     Answer = Get_integer_Answer(Question, Menu_list, 2)
 
+    Subject_list = []
+
     if Answer == 1:
         pass
     else:
         pass
 
-    # 다시 이름을 받을 것인지 묻는 부분
+    # Web 파일 중 공강인지 아닌지 알아봄
+    # 공강이라면 (시간, 학년에 맞춰서) 도서관 혹은 공강실 등을 출력하고 종료 (return)
+
+    Get_Answers_for_Student(Student_name=student_name, Subject_list=Subject_list)
 
 
 check_Main = True
 while check_Main is True:
-    check_Main = Main()
+    Main()
+    Question_check = "다른 사람을 입력하겠습니까?"
+    Answer_check = ["1. yes", "2. no"]
+    check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check)
+    if check_Main == 1:
+        check_Main = True
+    else:
+        check_Main = False
