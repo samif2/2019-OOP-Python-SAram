@@ -4,11 +4,11 @@ datalist = {'gID': None, 'gPassword': None, 'ID': None, 'Password': None, 'logsy
 
 
 def load_info():  # 파일에서 아이디랑 비밀번호 정보를 불러옴
-    global datalist
     try:
         file = open('MainData', 'rb')
-        datalist = pickle.load(file)
+        database = pickle.load(file)
         file.close()
+        return database
 
     except:
         pass
@@ -33,8 +33,14 @@ def print_help():  # 설명서 출력
 
 def setting():  # 아이디와 비밀번호를 변경하여 내장파일에 저장하는 함수
     global datalist
-    datalist['ID'] = input("설정하고자 하는 ID를 입력해주세요 : ")
-    datalist['Password'] = input("설정하고자 하는 PASSWORD를 입력해주세요 : ")
+    if datalist['logsys'] == 'sign_in':
+        datalist['ID'] = input("설정하고자 하는 ID를 입력해주세요 : ")
+        datalist['Password'] = input("설정하고자 하는 PASSWORD를 입력해주세요 : ")
+    else:
+        datalist['gID'] = input("구글 이메일을 입력해주세요 : ")
+        datalist['gPassword'] = input("구글 비밀번호를 입력해주세요 : ")
+
+    dump_info(datalist)
     print("ID와 PASSWORD 의 설정이 완료되었습니다.")
 
 
@@ -44,6 +50,7 @@ def gmail():  # 로그인 방식을 gmail로 바꾸는 함수
     print("로그인 방식을 gmail로 설정하기 위해 구글 이메일과 비밀번호를 저장합니다")
     datalist['gID'] = input("구글 이메일을 입력해주세요 : ")
     datalist['gPassword'] = input("구글 비밀번호를 입력해주세요 : ")
+    dump_info(datalist)
 
     print("로그인 방식이 gmail로 설정되었습니다.")
 
@@ -51,6 +58,7 @@ def gmail():  # 로그인 방식을 gmail로 바꾸는 함수
 def sign_in():  # 로그인 방식을 sign_으로 바꾸는 함수
     datalist['logsys'] = 'sign_in'
     reset('reset_gmail')
+    dump_info(datalist)
     print("로그인 방식이 기본방식으로 설정되었습니다.")
 
 
@@ -69,6 +77,7 @@ def reset(gmails=None):  # 프로그램 내 저장되어있는 아이디와 비�
     datalist['gID'] = None
     datalist['gPassword'] = None
     if gmails == 'reset_gmail':  # gmail정보 '만'  삭제할경우
+        dump_info(datalist)
         return
 
     datalist['ID'] = None  # 아니라면 일반적인 초기화 마저 진행
@@ -79,7 +88,6 @@ def reset(gmails=None):  # 프로그램 내 저장되어있는 아이디와 비�
 
 def exit():  # 프로그램을 종료시키는 함수
     print("프로그램을 종료합니다.")
-    dump_info(datalist)
     sys.exit(0)
 
 
@@ -96,7 +104,7 @@ commandlist = {'help': print_help, 'setting': setting, 'check': check,
 
 
 if __name__ == '__main__':
-    load_info()
+    datalist = load_info()
     print("basic_command 파일을 실행합니다.")
     print("help 를 입력하시면 사용 가능한 커맨드들이 출력됩니다.")
     while True:
