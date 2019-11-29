@@ -18,7 +18,7 @@ def Sort_Time(year=2019, month=None, day=None, day_name=None, hour=None, minute=
     "금", "토", "월" 과 같은 형태로 입력
     :param hour: 시 (24시간 방법 사용!), int 타입 지향, string 타입 지원
     :param minute: 분, int 타입 지향, string 타입 지원
-    :param time_name:
+    :param time_name: 시간표 상의 시간
     :return: 보아야 하는 시간표를 [ , ] 형태 리스트로 반환한다. 이 순서는 요일 - 시간 순이다.
     요일은 월요일을 1으로 하며 1씩 증가한다.
     """
@@ -39,6 +39,10 @@ def Sort_Time(year=2019, month=None, day=None, day_name=None, hour=None, minute=
         day_name = date.strftime('%A')[0:1]
 
         answer += [day_name_list.index(day_name)+1]
+
+    if time_name is not None:
+        answer.append(time_name)
+        return answer
 
     hour = int(hour)
     minute = int(minute)
