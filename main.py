@@ -57,8 +57,14 @@ def Main():
     else:
         pass
 
+    # 날짜와 시간을 매개변수로 사용하여 SortingTime_LSI 의 Sort_Time 함수 실행
+    # 형식을 Web에 사용한 것과 같이 바꿔줌
+
+    # (Main 바깥에 있는 (지금은 71번째 줄 이후?) 부분에 id 와 pw를 입력받아 로그인 하는 부분이 있어야 함.)
+
     # Web 파일 중 공강인지 아닌지 알아봄
     # 공강이라면 (시간, 학년에 맞춰서) 도서관 혹은 공강실 등을 출력하고 종료 (return)
+    # 공강이 아니라면 해당 시간 시간표를 가져옴
 
     Get_Answers_for_Student(Student_name=student_name, Subject_list=Subject_list)
 
