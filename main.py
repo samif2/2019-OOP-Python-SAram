@@ -33,13 +33,27 @@ def Main():
     # 입력 처리 필요
 
     Question = "찾고자 하는 시간의 형식을 선택하세요"
-    Menu_list = ["1. 교시 입력", "2. 시간(시 분) 입력"]
-    Answer = Get_integer_Answer(Question, Menu_list, 2)
+    Menu_list = ["교시 입력", "시간(시 분) 입력"]
+    Answer = Get_integer_Answer(Question, Menu_list)
 
     Subject_list = []
 
     if Answer == 1:
-        pass
+        print("교시를 입력하세요.")
+        while True:
+            Answer = input('>')
+
+            try:
+                Answer = int(Answer)
+                if 1 <= Answer <= 12:
+                    if Answer == 12:
+                        Answer = 1
+                else:
+                    print("잘못된 입력입니다.")
+                    continue
+            except:
+                print("잘못된 입력입니다.")
+                continue
     else:
         pass
 
@@ -53,7 +67,7 @@ check_Main = True
 while check_Main is True:
     Main()
     Question_check = "다른 사람을 입력하겠습니까?"
-    Answer_check = ["1. yes", "2. no"]
+    Answer_check = ["yes", "no"]
     check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check)
     if check_Main == 1:
         check_Main = True
