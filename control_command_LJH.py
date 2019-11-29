@@ -19,6 +19,7 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
 
         self.driver = driver
 
+
     def quit(self):
         self.driver.quit()
 
@@ -84,6 +85,9 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
             self.quit()
             sys.exit(0)
 
+    def souping_page(self):
+        return bs(self.driver.page_source, 'html.parser')
+
 
 class Student:
     CT = None
@@ -94,13 +98,12 @@ class Student:
 
     def importing_calender(self, wanted):
         global database
-        calenderbase = np.zeros((11,7), dtype=bool)
+        calenderbase = np.zeros((11, 7), dtype=bool)
         self.CT.auto_login(database)
         self.CT.get('https://go.sasa.hs.kr/timetable/dup')
         self.CT.finding('id', 'target', 'send', wanted, 1)
 
-        source = self.CT.driver.page_source
-        soup = bs(source, 'html.parser')
+        soup = self.CT.souping_page()
         # Selenium 을 beautifulSoup에 이용하기위해 사용하는 과정
         founded_student = soup.select("#ui-id-1 li.ui-menu-item")
         # 자동완성 리스트를 사이트에서 구해온다
@@ -123,11 +126,30 @@ class Student:
 
         self.CT.finding('id', 'target', 'ret').clear()
         self.CT.finding('id', 'target', 'send', res_student, 1)
-        self.CT.finding('c_name', 'btn-ms', 'click')
-        time_schedule = soup.select("td.text-center")
+        self.CT.finding('c_name', 'btn-ms', 'click', 3)
+
+        souping = self.CT.souping_page()
+        time_schedule = souping.select("td.text-center")
 
         ###
-        print(time_schedule.find('span').getText())
+        i = 0; q = 0
+        for ping in time_schedule:
+            if q == 0:
+                q += 1
+                continue
+
+            if q == 8:
+                i += 1
+                q = 0
+            if ping.find('span') is not None:
+                calenderbase[i][q-1] = True
+            else:
+                calenderbase[i][q-1] = False
+            q += 1
+
+        print(calenderbase)
+
+        '''
         for i in range(11):
             for q in range(9):
                 if q == 0:
@@ -138,9 +160,9 @@ class Student:
                     calenderbase[i][q] = False
 
         print(calenderbase)
+        '''
         pass
         ### 모든 시간의 공강여부를 따지는 프로그램, 전체적인 대 개편 수정 필요
-
 
 
 
