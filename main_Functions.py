@@ -1,5 +1,3 @@
-from SubjectType_LSI import return_Subject_Type as Sub_type
-
 Student_name = ""
 Student_class = 0
 Student_sub_list = []
