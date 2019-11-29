@@ -67,7 +67,7 @@ def Main():
     # 공강이라면 (시간, 학년에 맞춰서) 도서관 혹은 공강실 등을 출력하고 종료 (return)
     # 공강이 아니라면 해당 시간 시간표를 가져옴
 
-    Get_Answers_for_Student(Student_name=student_name, Subject_list=Subject_list)
+    Get_Answers_for_Student(Student=student_name, Subject_list=Subject_list)
 
 
 check_Main = True
