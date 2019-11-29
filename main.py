@@ -29,8 +29,24 @@ def Main():
 
     print("찾고자 하는 날자를 입력하세요.")
     print("(입력 순서: 년도 월 일)")
-    date = input('>')
-    # 입력 처리 필요
+    date_year = 0
+    date_month = 0
+    date_day = 0
+    while True:
+        date = input('>')
+        date = date.split(' ')
+
+        if len(date) != 3:
+            print("잘못된 입력입니다.")
+
+        try:
+            date = list(map(int, date))
+            date_year = date[0]
+            date_month = date[1]
+            date_day = date[2]
+            break
+        except:
+            print("잘못된 입력입니다.")
 
     Question = "찾고자 하는 시간의 형식을 선택하세요"
     Menu_list = ["교시 입력", "시간(시 분) 입력"]
@@ -47,7 +63,10 @@ def Main():
                 Answer = int(Answer)
                 if 1 <= Answer <= 12:
                     if Answer == 12:
-                        Answer = 1
+                        Answer = 11
+                    SortingTime_LSI.Sort_Time(year=date_year, month=date_month, day=date_day,
+                                              time_name=Answer)
+                    break
                 else:
                     print("잘못된 입력입니다.")
                     continue
@@ -66,7 +85,7 @@ def Main():
     # 공강이라면 (시간, 학년에 맞춰서) 도서관 혹은 공강실 등을 출력하고 종료 (return)
     # 공강이 아니라면 해당 시간 시간표를 가져옴
 
-    Get_Answers_for_Student(Student_name=student_name, Subject_list=Subject_list)
+    Get_Answers_for_Student(Student=student_name, Subject_list=Subject_list)
 
 
 check_Main = True
