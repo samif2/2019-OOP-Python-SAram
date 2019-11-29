@@ -4,6 +4,7 @@ import numpy as np
 from selenium import webdriver
 from basic_command_LJH import load_info
 import time, pickle, sys
+import Web_LJS as wb
 
 
 database = load_info()
@@ -92,6 +93,8 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
 class Student:
     CT = None
     calender = None
+    student_grade = None; student_class = None
+    student_sublist = None  # 수강할 만한 과목을 모두 모은 함수
 
     def __init__(self, name):
         '''
@@ -125,11 +128,17 @@ class Student:
 
                 if number <= len(founded_student) or number > 0:
                     res_student = founded_student[number-1].find('div').getText()
+                    self.student_grade = int(res_student[0])
+                    self.student_class = int(res_student[2])
+                    print(self.student_grade, self.student_class)
                     break
                 print("입력정보가 잘못되었습니다. 다시출력해주세요")
 
         else:
             res_student = founded_student[0].find('div').getText()
+            self.student_grade = int(res_student[0])
+            self.student_class = int(res_student[2])
+            print(self.student_grade, self.student_class)
 
         self.CT.finding('id', 'target', 'ret').clear()
         self.CT.finding('id', 'target', 'send', res_student, 1)
@@ -171,6 +180,46 @@ class Student:
         return calenderbase
         # 모든 시간의 공강여부를 따져 배열에 저장한 뒤 반환하는 함수
 
+    def import_timeteble(self, grade, time2):
+        '''
+        :param grade:  찾고자 하는 사람의 학년 // main 에서 student_grade
+        :param time2:  찾고자 하는 날짜와 시간대 (ex. 월요일 5교시이면 1-5)
+        :return: 해당하는 시간대에 학년에 맞는 수업을 나열된 리스트를 반환합니다
+        '''
+        #  id 형식을 맞추어 새로운 변수인 table_time 에 저장합니다
+        table_time = 'time' + time2
+
+        if grade == 1:
+            self.CT.get('https://go.sasa.hs.kr/timetable/search_new/all/1')
+        else:
+            self.CT.get('https://go.sasa.hs.kr/timetable/search_new/all/2')
+
+        classes = [
+            element.text.strip()
+            for element in self.CT.driver.find_elements_by_id(table_time)
+        ]
+
+        return classes
+
+    def all_case(self, wanted_time):
+        raw_table = self.import_timeteble(self.student_grade, wanted_time)[0].split('\n')
+        time_table = list()
+
+        for i in range(len(raw_table)):
+            if 2*i < len(raw_table):
+                appart = raw_table[2*i][: -1].split(' [')
+                appart[1] = int(appart[1])
+                time_table.append(appart)
+                # 과목의 이름만 한땀 한땀 가져오는데, 숫자와 과목을 구분짓는 ' [' 를 기준으로 split 시킨 리스트를 들여옴
+            else:
+                break
+
+        print(time_table)
+
+        for i in range(5):  # 모든 시간표를 돌아보며 공강 시간인데 중복되는게 있다면 뺀다.
+            for q in range(12):
+                pass
+
 
 
 if __name__ == '__main__':
@@ -187,4 +236,4 @@ if __name__ == '__main__':
 
     name = input("이름을 입력해 주세요: ")
     ST = Student(name)
-    ST.importing_calender('권정준')
+    ST.all_case('1-1')
