@@ -1,3 +1,5 @@
+from SubjectType_LSI import return_Subject_Type as Sub_type
+
 Student_name = ""
 Student_class = 0
 Student_sub_list = []
@@ -35,11 +37,13 @@ def Get_integer_Answer(Question, menu_list):
         print("잘못된 입력입니다. 다시 입력하세요.")
 
 
+"""
 def Get_Class_info():
     global Student_class
 
     if Student_class != 0:
         print("이미 반 정보가 있습니다:", Student_class)
+        return Get_Answers_for_Student(Student_name, Student_sub_list)
 
     print("반 정보를 입력하세요.")
     while True:
@@ -51,11 +55,16 @@ def Get_Class_info():
                 return Get_Answers_for_Student(Student_name, Student_sub_list)
             if 1 <= Answer <= 6:
                 Student_class = Answer
+                
+                for Sub in Student_sub_list:
+                    if len(Sub_type(Sub)) == 3:
+                        
+                
                 return Get_Answers_for_Student(Student_name, Student_sub_list)
         except:
             pass
         print("잘못된 입력입니다.")
-
+"""
 
 def Quit_File():
     print("프로그램을 종료합니다.")
@@ -108,7 +117,7 @@ def Print_Help():
 
     print("'quit': 프로그램을 종료합니다")
     print("'all_sub': 가능한 모든 과목을 출력합니다.")
-    print("'class_info': 학생의 반 정보를 입력합니다.")
+    # print("'class_info': 학생의 반 정보를 입력합니다.")
     print("'subject': 전공, 혹은 부전공 과목을 입력합니다.")
     print("'no_sub': 듣지 않을 만한 과목을 입력합니다.")
     print("'help': 지금 보고있는 정보를 띄우는 명령어입니다.")
@@ -130,7 +139,7 @@ def Get_Answers_for_Student(Student, Subject_list):
         print("프로그램을 종료합니다.")
         return
 
-    Answers = {"quit": Quit_File, "all_sub": Print_all_Subject, "class_info": Get_Class_info,
+    Answers = {"quit": Quit_File, "all_sub": Print_all_Subject,
                "subject": Get_Subject_info, "no_sub": Get_Subject_info_no, "help": Print_Help}
 
     print("어떤 작업을 하시겠습니까?")
