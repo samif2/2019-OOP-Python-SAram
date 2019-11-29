@@ -71,7 +71,7 @@ def Get_Answers_for_Student(Student_name, Subject_list):
             for Subject in Subject_list:
                 print(Subject)
         elif Answer == 2:
-            if Student_class != 0:
+            if Student_class == 0:
                 Student_class = Get_Class_info()
             else:
                 print("이미 정보를 가지고 있습니다.")

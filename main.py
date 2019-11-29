@@ -48,6 +48,7 @@ def Main():
                 if 1 <= Answer <= 12:
                     if Answer == 12:
                         Answer = 1
+                    break
                 else:
                     print("잘못된 입력입니다.")
                     continue
