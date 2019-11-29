@@ -185,5 +185,6 @@ if __name__ == '__main__':
     # ControlTower 사용예시
     # 아이디 입력하고 1초 기다림 + 비밀번호 입력하고 1초 기다림 + 로그인
 
-    ST = Student()
+    name = input("이름을 입력해 주세요: ")
+    ST = Student(name)
     ST.importing_calender('권정준')
