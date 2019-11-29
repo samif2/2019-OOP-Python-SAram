@@ -31,9 +31,31 @@ def Get_integer_Answer(Question, menu_list):
         print("잘못된 입력입니다. 다시 입력하세요.")
 
 
+def Get_Class_info():
+    pass
+
+
 def Get_Answers_for_Student(Student_name, Subject_list):
     print("=" * 20)
-    print("학생" + Student_name + "를 찾고 있습니다.")
+    print("학생 '" + Student_name + "' 찾는 중")
 
-    Question = "어떤 작업을 하시겠습니까?"
-    Answers = ["추측한 모든 과목 보기", "반 정보 입력", "전공 및 부전공 입력", "듣지 않을 만한 수업 선택"]
+    while True:
+        Question = "어떤 작업을 하시겠습니까?"
+        Answers = ["추측한 모든 과목 보기", "반 정보 입력", "전공 및 부전공 입력", "듣지 않을 만한 수업 선택"]
+        Answer = Get_integer_Answer(Question, Answers)
+
+        if Answer == 0:
+            print("학생 찾기를 종료합니다.")
+            return
+        elif Answer == 1:
+            print("-" * 20)
+            print("가능성 있는 과목:")
+            for Subject in Subject_list:
+                print(Subject)
+            print("-" * 20)
+        elif Answer == 2:
+            pass
+        elif Answer == 3:
+            pass
+        elif Answer == 4:
+            pass
