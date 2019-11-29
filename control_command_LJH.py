@@ -91,9 +91,16 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
 ##
 class Student:
     CT = None
+    calender = None
 
-    def __init__(self):
+    def __init__(self, name):
+        '''
+
+        :param name: 학생의 이름을 가져옴
+        '''
+
         self.CT = ControlTower(webdriver.Chrome('chromedriver.exe'))
+        calender = self.importing_calender(name)
         pass
 
     def importing_calender(self, wanted):
@@ -178,5 +185,6 @@ if __name__ == '__main__':
     # ControlTower 사용예시
     # 아이디 입력하고 1초 기다림 + 비밀번호 입력하고 1초 기다림 + 로그인
 
-    ST = Student()
+    name = input("이름을 입력해 주세요: ")
+    ST = Student(name)
     ST.importing_calender('권정준')
