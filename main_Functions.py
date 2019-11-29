@@ -107,11 +107,13 @@ def Print_Help():
     print("도움말을 출력합니다.")
 
     print("'quit': 프로그램을 종료합니다")
-    print("'sll_sub': 가능한 모든 과목을 출력합니다.")
+    print("'all_sub': 가능한 모든 과목을 출력합니다.")
     print("'class_info': 학생의 반 정보를 입력합니다.")
     print("'subject': 전공, 혹은 부전공 과목을 입력합니다.")
     print("'no_sub': 듣지 않을 만한 과목을 입력합니다.")
     print("'help': 지금 보고있는 정보를 띄우는 명령어입니다.")
+
+    return Get_Answers_for_Student(Student_name, Student_sub_list)
 
 
 def Get_Answers_for_Student(Student, Subject_list):
@@ -141,3 +143,7 @@ def Get_Answers_for_Student(Student, Subject_list):
             return func()
         except KeyError:
             print("잘못된 커맨드입니다.")
+
+
+if __name__ == '__main__':
+    Get_Answers_for_Student('이소이', [1, 2, 3, 4, 5])
