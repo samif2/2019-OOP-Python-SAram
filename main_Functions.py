@@ -36,37 +36,6 @@ def Get_integer_Answer(Question, menu_list):
 
 
 def Get_Class_info():
-    print("반을 입력하세요.")
-    while True:
-        Answer = input('>')
-
-        try:
-            Answer = int(Answer)
-        except:
-            print("잘못된 입력입니다. 다시 입력하세요.")
-            continue
-
-        if 1 <= Answer <= 6:
-            return Answer
-
-        print("잘못된 입력입니다. 다시 입력하세요.")
-
-
-def Quit_File():
-    print("프로그램을 종료합니다.")
-    return
-
-
-def Print_all_Subject():
-    print("모든 가능한 과목을 출력합니다.")
-
-    for Sub in Student_sub_list:
-        print(Sub)
-
-    return Get_Answers_for_Student(Student_name, Student_sub_list)
-
-
-def Get_Subject_info():
     global Student_class
 
     if Student_class != 0:
@@ -86,6 +55,39 @@ def Get_Subject_info():
         except:
             pass
         print("잘못된 입력입니다.")
+
+
+def Quit_File():
+    print("프로그램을 종료합니다.")
+    return
+
+
+def Print_all_Subject():
+    print("모든 가능한 과목을 출력합니다.")
+
+    for Sub in Student_sub_list:
+        print(Sub)
+
+    return Get_Answers_for_Student(Student_name, Student_sub_list)
+
+
+def Get_Subject_info():
+    global Student_sub
+
+    Question = "전공 정보를 입력받습니다."
+    Answers = ["수학", "물리", "화학", "생명과학", "정보과학", "지구과학"]
+    Answer = Get_integer_Answer(Question, Answers)
+
+    if Answer == 0:
+        print("이 작업을 종료합니다.")
+        return Get_Answers_for_Student(Student_name, Student_sub_list)
+
+    Answer = -(Answer - 1)
+    if Answer == -5:
+        Answer = 9
+
+    Student_sub.append(Answer)
+    return Get_Answers_for_Student(Student_name, Student_sub_list)
 
 
 def Get_Subject_info_no():
