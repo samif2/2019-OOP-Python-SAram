@@ -161,8 +161,8 @@ class Student:
 
         print(calenderbase)
         '''
-        pass
-        ### 모든 시간의 공강여부를 따지는 프로그램, 전체적인 대 개편 수정 필요
+        return calenderbase
+        # 모든 시간의 공강여부를 따져 배열에 저장한 뒤 반환하는 함수
 
 
 
