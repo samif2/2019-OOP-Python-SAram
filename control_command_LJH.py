@@ -88,7 +88,7 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
     def souping_page(self):
         return bs(self.driver.page_source, 'html.parser')
 
-
+##
 class Student:
     CT = None
 

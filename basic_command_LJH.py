@@ -51,7 +51,7 @@ def gmail():  # 로그인 방식을 gmail로 바꾸는 함수
     datalist['gID'] = input("구글 이메일을 입력해주세요 : ")
     datalist['gPassword'] = input("구글 비밀번호를 입력해주세요 : ")
     dump_info(datalist)
-
+##
     print("로그인 방식이 gmail로 설정되었습니다.")
 
 
