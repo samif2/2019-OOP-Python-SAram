@@ -3,6 +3,7 @@ import requests
 import numpy as np
 from selenium import webdriver
 from basic_command_LJH import load_info
+from SubjectType_LSI import *  # 학년 - 반정보 전용
 import time, pickle, sys
 import Web_LJS as wb
 
@@ -92,18 +93,18 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
 ##
 class Student:
     CT = None
-    calender = None
+    calender = None; student_name = None
     student_grade = None; student_class = None
     student_sublist = None  # 수강할 만한 과목을 모두 모은 함수
 
-    def __init__(self, name):
+    def __init__(self, st_name):
         '''
 
-        :param name: 학생의 이름을 가져옴
+        :param st_name: 학생의 이름을 가져옴
         '''
-
+        self.student_name = st_name
         self.CT = ControlTower(webdriver.Chrome('chromedriver.exe'))
-        calender = self.importing_calender(name)
+        self.calender = self.importing_calender(st_name)
         pass
 
     def importing_calender(self, wanted):
@@ -180,46 +181,92 @@ class Student:
         return calenderbase
         # 모든 시간의 공강여부를 따져 배열에 저장한 뒤 반환하는 함수
 
-    def import_timeteble(self, grade, time2):
+    def import_timetable(self, grade, dayz, timez, ifemit = None):
         '''
         :param grade:  찾고자 하는 사람의 학년 // main 에서 student_grade
         :param time2:  찾고자 하는 날짜와 시간대 (ex. 월요일 5교시이면 1-5)
         :return: 해당하는 시간대에 학년에 맞는 수업을 나열된 리스트를 반환합니다
         '''
         #  id 형식을 맞추어 새로운 변수인 table_time 에 저장합니다
-        table_time = 'time' + time2
-
-        if grade == 1:
-            self.CT.get('https://go.sasa.hs.kr/timetable/search_new/all/1')
-        else:
-            self.CT.get('https://go.sasa.hs.kr/timetable/search_new/all/2')
+        table_time = 'time' + str(dayz) + '-' + str(timez)
+        if ifemit is None:  # ifemit 에 무언가가 입력될경우, 사이트 변환하는 과정을 거치지 않는다.
+            if grade == 1:
+                self.CT.get('https://go.sasa.hs.kr/timetable/search_new/all/1')
+            else:
+                self.CT.get('https://go.sasa.hs.kr/timetable/search_new/all/2')
 
         classes = [
             element.text.strip()
             for element in self.CT.driver.find_elements_by_id(table_time)
         ]
-
-        return classes
-
-    def all_case(self, wanted_time):
-        raw_table = self.import_timeteble(self.student_grade, wanted_time)[0].split('\n')
+        raw_table = classes[0].split('\n')
         time_table = list()
 
         for i in range(len(raw_table)):
-            if 2*i < len(raw_table):
-                appart = raw_table[2*i][: -1].split(' [')
+            if 2 * i < len(raw_table):
+                appart = raw_table[2 * i][: -1].split(' [')
                 appart[1] = int(appart[1])
+                #  과목의 이름만 한땀 한땀 가져오는데, 숫자와 과목을 구분짓는 ' [' 를 기준으로 split 시킨 리스트를 들여옴
+                appart.append(raw_table[2*i+1].split(' / ')[1])
+                # 그리고 그 다음원소가 담당 선생님, 강의실 이므로 강의실을 한 시간 단위에 해단하는 리스트에 추가한다.
                 time_table.append(appart)
-                # 과목의 이름만 한땀 한땀 가져오는데, 숫자와 과목을 구분짓는 ' [' 를 기준으로 split 시킨 리스트를 들여옴
             else:
                 break
 
-        print(time_table)
+        return time_table
+    # 과목과 반, 강의실을 묶은 ( ex)  ['고급알고리즘' , 1, 'S401']) 리스트를 반환.
 
-        for i in range(5):  # 모든 시간표를 돌아보며 공강 시간인데 중복되는게 있다면 뺀다.
-            for q in range(12):
-                pass
+    def reject(self, time_table):
+        # 학년, 필수과목의 반 정보처럼 다른 시간표의 탐색없이 과목정보만으로 미리 배제할 수 있는 정보를 배제한다.
+        res_table = list()
+        accepted_class = ['', [1], [0, 2], [0, 3]]
+        # 1학년은 [1], 2학년은 2, 2와 3의 0, 3학년은 3, 2와 3의 0 이 입력될경우 수강 가능한것으로 처리한다.
+        for timez in time_table:
+            if timez[0] == '소리예술':
+                continue
 
+            print(dict_Subject[timez[0]][0], accepted_class[self.student_grade])
+            if dict_Subject[timez[0]][0] in accepted_class[self.student_grade]:
+                # 해당 수업을 학생이 들을 수 없는 수업이라면(학년이 다른)
+                res_table.append(timez)  # 해당 수업을 시간표 리스트에서 제외한다.
+
+        return res_table
+
+    def all_case(self, wanted_day, wanted_time):  # 원하는 날짜와 원하는 시간을 가져온다
+        if self.calender[wanted_time-1][wanted_day-1]:
+            print("공강시간입니다.공강실이나 도서관에 있을 확률이 높습니다.")
+            return
+        # 공강시간이라면 공강이라고 알려줌
+
+        prototype_table = self.import_timetable(self.student_grade, wanted_day, wanted_time)
+        # 원하는 시간이 있다면 그 시간에 있을만한 모든 수업과 수업의 반, 강의실을 가져옴
+
+        if self.student_grade == 1:
+            for i in prototype_table:
+                if i[1] == self.student_class:
+                    return i  # 1학년은 전과목 필수이므로, 학생의 반은 수업의 반과 같다. 이를 이용하여 리턴한다.
+
+        else:
+            time_table = self.reject(prototype_table)
+            # 일단 학생의 조건을 따라 몇가지 가능성들을 배제한다.
+
+            for i in range(5):  # 모든 시간표를 돌아보며 공강 시간인데 중복되는게 있다면 뺀다.
+                for q in range(11):
+                    if [i+1, q+1] in [[wanted_day, wanted_time], [3, 5], [3, 6], [5, 5]]\
+                            or (i == 4 and q > 6):
+                        print("continuing")
+                        continue
+                    elif self.calender[q][i]:
+                        extra_table = self.import_timetable(self.student_grade, i + 1, q + 1, 'emit')
+                        for element in extra_table:
+                            if element[0] == '소리예술':
+                                continue
+                            if element in time_table:
+                                time_table.remove(element)
+                                # 공강 시간표의 수업과 겹치는 수업이 있다면 배제한다.
+
+            print(time_table)
+            return time_table
 
 
 if __name__ == '__main__':
@@ -234,6 +281,9 @@ if __name__ == '__main__':
     # ControlTower 사용예시
     # 아이디 입력하고 1초 기다림 + 비밀번호 입력하고 1초 기다림 + 로그인
 
+
+
     name = input("이름을 입력해 주세요: ")
     ST = Student(name)
-    ST.all_case('1-1')
+    q = ST.all_case(4, 7)
+
