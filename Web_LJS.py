@@ -3,13 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 
-driver = None
-'''
 # chromedriver 의 위치를 path 에 저장한다
 path = "chromedriver.exe"
 # selenium 의 webdriver 로 크롬 브라우저를 실행한다
 driver = webdriver.Chrome(path)
-'''
 
 
 def log_in(user_id, user_password, driver):
@@ -64,7 +61,7 @@ def is_free(target_name, time1):
         # 공강이므로 True 를 return 한다
         return True
 
-def import_timeteble(grade, time2, driver):
+def import_timeteble(grade, time2):
     '''
     :param grade:  찾고자 하는 사람의 학년 // main 에서 student_grade
     :param time2:  찾고자 하는 날짜와 시간대 (ex. 월요일 5교시이면 1-5)
