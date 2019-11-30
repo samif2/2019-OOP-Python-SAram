@@ -279,7 +279,7 @@ if __name__ == '__main__':
     CT.finding(element='c_name', inform='btn.info', after='click', sec=0)
     '''
     # ControlTower 사용예시
-    # 아이디 입력하고 1초 기다림 + 비밀번호 입력하고 1초 기다림 + 로그인
+    ## 아이디 입력하고 1초 기다림 + 비밀번호 입력하고 1초 기다림 + 로그인
 
 
 
