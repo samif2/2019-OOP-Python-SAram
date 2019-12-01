@@ -47,7 +47,7 @@ def Print_all_Subject():
     print("모든 가능한 과목을 출력합니다.")
 
     for Sub in Student_sub_list:
-        print(Sub)
+        print(Sub[0], Sub[2])
 
     return Get_Answers_for_Student(Student_name, Student_sub_list)
 
@@ -61,7 +61,7 @@ def Use_Subject_info():
 
     for sub_type in Student_sub:
         for sub in Student_sub_list:
-            if sub_type == SubjectType_LSI.return_Subject_Type(sub):
+            if sub_type == SubjectType_LSI.return_Subject_Type(sub[0]):
                 new_sub_list.append(sub)
 
     for sub in Student_sub_list:
