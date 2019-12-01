@@ -61,6 +61,8 @@ def Use_Subject_info():
 
     for sub_type in Student_sub:
         for sub in Student_sub_list:
+            if "프로젝트기반연구" in sub[0]:
+                continue
             if sub_type == SubjectType_LSI.return_Subject_Type(sub[0]):
                 new_sub_list.append(sub)
 
@@ -104,7 +106,9 @@ def Get_Subject_info_no():
         return Get_Answers_for_Student(Student_name, Student_sub_list)
     del Student_sub_list[Answer - 1]
 
-    return Get_Answers_for_Student(Student_name, Student_sub_list)
+    print("과목을 삭제하였습니다.")
+
+    return Print_all_Subject()
 
 
 def Print_Help():
