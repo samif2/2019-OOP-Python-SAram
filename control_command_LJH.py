@@ -103,7 +103,7 @@ class Student:
         :param st_name: 학생의 이름을 가져옴
         '''
         self.student_name = st_name
-        self.CT = ControlTower(webdriver.Chrome('chromedriver.exe'))
+        self.CT = ControlTower(webdriver.Chrome('chromedriver.exe', chrome_options=options))
         self.calender = self.importing_calender(st_name)
         pass
 
