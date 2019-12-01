@@ -21,7 +21,6 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
 
         self.driver = driver
 
-
     def quit(self):
         self.driver.quit()
 
@@ -41,7 +40,7 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
         :param after: find 이후 사용할 함수. 기본은 'ret'로 정보를 리턴함. (send, click이 부가로 존재)
         :param afterinform: 이후 사용할 함수에서 send 가 설정된 경우, 어떤 정보를 전달할지 정해줌.
         :param sec: 이후 time.sleep()를 통해 지연할 시간(초)
-        :return: res 일떄만 함수를 실행하지않은채로 객체를 리턴
+        :return: res 일때만 함수를 실행하지않은채로 객체를 리턴
         """
 
         func_list = {  # find 계열 함수들은 html 창에 있는 요소들을 가져옴
