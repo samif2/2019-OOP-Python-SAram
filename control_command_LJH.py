@@ -73,7 +73,7 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
 
         if datalist['logsys'] == 'sign_in':  # 달빛학사 로그인정보를 선택하는 경우
             self.finding('name', 'id', 'send', datalist['ID'], 1)  # ID 창에 사용자의 달빛학사 ID를 입력
-            self.finding('name', 'Passwd', 'send', datalist['Password'], 1)  # PW 창에 사용자의 달빛학사 비밀번호를 입력
+            self.finding('name', 'passwd', 'send', datalist['Password'], 1)  # PW 창에 사용자의 달빛학사 비밀번호를 입력
             self.finding('c_name', 'btn-info', 'click')  # sign in 버튼을 클릭
         else:
             self.finding('c_name', 'btn-flat', 'click', sec=1)  # ID 창에 사용자의 달빛학사 ID를 입력
@@ -81,8 +81,14 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
             self.finding('c_name', 'CwaK9', 'click', sec=5)
             self.finding('c_name', 'whsOnd', 'send', datalist['gPassword'], 1)  # 사용자의 g-mail 비밀번호를 입력
             self.finding('c_name', 'CwaK9', 'click', sec=2)
-        print(self.url())
-        if str(self.url()) != 'https://go.sasa.hs.kr/main#':
+
+        if datalist['logsys'] == 'sign_in':
+            required_url = 'https://go.sasa.hs.kr/main'
+        else:
+            required_url = 'https://go.sasa.hs.kr/main#'
+
+
+        if str(self.url()) != required_url:
             print("아이디나 비밀번호가 등록된 정보와 같지 않습니다. \n"
                   "프로그램을 재실행하여 아이디와 비밀번호를 다시 설정해 주세요.")
             self.quit()
@@ -103,7 +109,7 @@ class Student:
         :param st_name: 학생의 이름을 가져옴
         '''
         self.student_name = st_name
-        self.CT = ControlTower(webdriver.Chrome('chromedriver.exe', chrome_options=options))
+        self.CT = ControlTower(webdriver.Chrome('chromedriver.exe'))
         self.calender = self.importing_calender(st_name)
         pass
 
@@ -242,7 +248,6 @@ class Student:
                 for q in range(11):
                     if [i+1, q+1] in [[wanted_day, wanted_time], [3, 5], [3, 6], [5, 5]]\
                             or (i == 4 and q > 6):
-                        print("continuing")
                         continue
                     elif self.calender[q][i]:
                         extra_table = self.import_timetable(self.student_grade, i + 1, q + 1, 'emit')
@@ -253,7 +258,6 @@ class Student:
                                 time_table.remove(element)
                                 # 공강 시간표의 수업과 겹치는 수업이 있다면 배제한다.
 
-            print(time_table)
             return time_table
 
 
