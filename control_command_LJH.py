@@ -44,11 +44,12 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
         :return: res 일떄만 함수를 실행하지않은채로 객체를 리턴
         """
 
-        func_list = {'id': self.driver.find_element_by_id,  # find 계열 함수들은 html 창에 있는 요소들을 가져옴
-                     'name': self.driver.find_element_by_name,
-                     'xpath': self.driver.find_element_by_xpath,
-                     'c_name': self.driver.find_element_by_class_name
-                     }
+        func_list = {  # find 계열 함수들은 html 창에 있는 요소들을 가져옴
+            'id': self.driver.find_element_by_id,
+            'name': self.driver.find_element_by_name,
+            'xpath': self.driver.find_element_by_xpath,
+            'c_name': self.driver.find_element_by_class_name
+         }
 
         res = func_list[element](inform)
         if after == 'ret':
@@ -70,15 +71,15 @@ class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령
     def auto_login(self, datalist):  # 자동으로 로그인하여 접속
         self.get('https://go.sasa.hs.kr')
 
-        if datalist['logsys'] == 'sign_in':
-            self.finding('name', 'id', 'send', datalist['ID'], 1)
-            self.finding('name', 'Passwd', 'send', datalist['Password'], 1)
-            self.finding('c_name', 'btn-info', 'click')
+        if datalist['logsys'] == 'sign_in':  # 달빛학사 로그인정보를 선택하는 경우
+            self.finding('name', 'id', 'send', datalist['ID'], 1)  # ID 창에 사용자의 달빛학사 ID를 입력
+            self.finding('name', 'Passwd', 'send', datalist['Password'], 1)  # PW 창에 사용자의 달빛학사 비밀번호를 입력
+            self.finding('c_name', 'btn-info', 'click')  # sign in 버튼을 클릭
         else:
-            self.finding('c_name', 'btn-flat', 'click', sec=1)
-            self.finding('name', 'identifier', 'send', datalist['gID'], 1)
+            self.finding('c_name', 'btn-flat', 'click', sec=1)  # ID 창에 사용자의 달빛학사 ID를 입력
+            self.finding('name', 'identifier', 'send', datalist['gID'], 1)  # 사용자의 이메일 주소를 입력
             self.finding('c_name', 'CwaK9', 'click', sec=5)
-            self.finding('c_name', 'whsOnd', 'send', datalist['gPassword'], 1)
+            self.finding('c_name', 'whsOnd', 'send', datalist['gPassword'], 1)  # 사용자의 g-mail 비밀번호를 입력
             self.finding('c_name', 'CwaK9', 'click', sec=2)
         print(self.url())
         if str(self.url()) != 'https://go.sasa.hs.kr/main#':
@@ -99,7 +100,6 @@ class Student:
 
     def __init__(self, st_name):
         '''
-
         :param st_name: 학생의 이름을 가져옴
         '''
         self.student_name = st_name

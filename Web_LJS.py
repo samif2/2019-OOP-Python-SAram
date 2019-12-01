@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 # chromedriver 의 위치를 path 에 저장한다
 path = "chromedriver.exe"
 # selenium 의 webdriver 로 크롬 브라우저를 실행한다
-driver = webdriver.Chrome(path)
+driver = webdriver.Chrome('chromedriver')
 
 
 def log_in(user_id, user_password, driver):
@@ -15,7 +15,6 @@ def log_in(user_id, user_password, driver):
     :param user_password:  사용자의 달빛학사 비밀번호
     :return: -
     '''
-
     # 사용자의 달빛학사 id와 비밀번호를 입력받는다
     # 달빛학사에 접속 - gmail 로 접속할지, id로 접속할지 입력받고 그에맞게 설정하지만, 아래는 우선 id-password 방법으로 로그인 하는 코드에요
 
