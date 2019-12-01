@@ -119,7 +119,6 @@ class Student:
         founded_student = soup.select("#ui-id-1 li.ui-menu-item")
 
         if len(founded_student) == 0:
-            print(founded_student)
             print("해당하는 이름의 학생이 존재하지 않습니다")
             self.CT.quit()
             return False
@@ -144,7 +143,6 @@ class Student:
             res_student = founded_student[0].find('div').getText()
             self.student_grade = int(res_student[0])
             self.student_class = int(res_student[2])
-            print(self.student_grade, self.student_class)
 
         self.CT.finding('id', 'target', 'ret').clear()
         self.CT.finding('id', 'target', 'send', res_student, 1)
@@ -169,20 +167,6 @@ class Student:
                 calenderbase[i][q-1] = False
             q += 1
 
-        print(calenderbase)
-
-        '''
-        for i in range(11):
-            for q in range(9):
-                if q == 0:
-                    continue
-                if time_schedule[i][q].find('span').getText() == ['공강']:
-                    calenderbase[i][q] = True
-                else:
-                    calenderbase[i][q] = False
-
-        print(calenderbase)
-        '''
         return calenderbase
 
         # 모든 시간의 공강여부를 따져 배열에 저장한 뒤 반환하는 함수
