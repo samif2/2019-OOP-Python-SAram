@@ -87,7 +87,7 @@ def Main():
                 time_minute = data_time[1]
                 date_and_time = SortingTime_LSI.Sort_Time(year=date_year, month=date_month, day=date_day,
                                                           hour=time_hour, minute=time_minute)
-
+                break
             except:
                 print("잘못된 입력입니다.")
 
