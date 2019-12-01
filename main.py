@@ -92,9 +92,9 @@ def Main():
     print("찾고자 하는 학생의 이름을 입력하세요.")
     student_name = input(">")
 
-    ST = cc.Student(Student_name)
+    ST = cc.Student(student_name)
 
-    if not ST.calender():
+    if type(ST.calender) == bool and not ST.calender:
         return
 
     q = ST.all_case(date_and_time[0], date_and_time[1])
@@ -109,7 +109,7 @@ check_Main = True
 
 while check_Main is True:
     Main()
-    Question_check = "다른 사람을 입력하겠습니까?"
+    Question_check = "\n다른 사람을 입력하겠습니까?\n"
     Answer_check = ["yes", "no"]
     check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check)
     if check_Main == 1:

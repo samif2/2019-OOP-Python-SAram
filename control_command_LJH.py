@@ -119,6 +119,7 @@ class Student:
         founded_student = soup.select("#ui-id-1 li.ui-menu-item")
 
         if len(founded_student) == 0:
+            print(founded_student)
             print("해당하는 이름의 학생이 존재하지 않습니다")
             self.CT.quit()
             return False
