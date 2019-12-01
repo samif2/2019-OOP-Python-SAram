@@ -29,7 +29,7 @@ def Sort_Time(year=2019, month=None, day=None, day_name=None, hour=None, minute=
 
     if day_name is not None:
         answer += [day_name_list.index(day_name)+1]
-    else:
+    else:  # 찾고자 하는 시간을 교시 형태로 변환합니다
         year = int(year)
         month = int(month)
         day = int(day)
