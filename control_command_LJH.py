@@ -282,7 +282,6 @@ if __name__ == '__main__':
     ## 아이디 입력하고 1초 기다림 + 비밀번호 입력하고 1초 기다림 + 로그인
 
 
-
     name = input("이름을 입력해 주세요: ")
     ST = Student(name)
     q = ST.all_case(4, 7)
