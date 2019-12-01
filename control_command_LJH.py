@@ -117,9 +117,13 @@ class Student:
         soup = self.CT.souping_page()
         # Selenium 을 beautifulSoup에 이용하기위해 사용하는 과정
         founded_student = soup.select("#ui-id-1 li.ui-menu-item")
-        # 자동완성 리스트를 사이트에서 구해온다
 
-        if len(founded_student) > 1:
+        if len(founded_student) == 0:
+            print("해당하는 이름의 학생이 존재하지 않습니다")
+            self.CT.quit()
+            return False
+
+        elif len(founded_student) > 1:
             for inform in founded_student:
                 print(inform.find('div').getText())
 
@@ -179,6 +183,7 @@ class Student:
         print(calenderbase)
         '''
         return calenderbase
+
         # 모든 시간의 공강여부를 따져 배열에 저장한 뒤 반환하는 함수
 
     def import_timetable(self, grade, dayz, timez, ifemit = None):

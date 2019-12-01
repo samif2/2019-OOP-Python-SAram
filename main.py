@@ -17,20 +17,10 @@ print("=" * 20)
 
 
 def Main():
-    print("찾고자 하는 학생의 이름을 입력하세요.")
-    student_name = input(">")
-
-    # Web_LJS 실행
-    # 만일 그런 사람이 없다면, 모든 과정을 생략하고 다시 할 것인지 묻는 부분으로 간다.
-
-    # check_right_name = Web_LJS
-    # if check_right_name is True:
 
     print("찾고자 하는 날자를 입력하세요.")
     print("(입력 순서: 년도 월 일)")
-    date_year = 0
-    date_month = 0
-    date_day = 0
+
     while True:
         date = input('>')
         date = date.split(' ')
@@ -50,8 +40,6 @@ def Main():
     Question = "찾고자 하는 시간의 형식을 선택하세요"
     Menu_list = ["교시 입력", "시간(시 분) 입력"]
     Answer = Get_integer_Answer(Question, Menu_list)
-
-    Subject_list = []
 
     date_and_time = []
     if Answer == 1:
@@ -101,7 +89,14 @@ def Main():
             except:
                 print("잘못된 입력입니다.")
 
-    ST = cc.Student(student_name)
+    print("찾고자 하는 학생의 이름을 입력하세요.")
+    student_name = input(">")
+
+    ST = cc.Student(Student_name)
+
+    if not ST.calender():
+        return
+
     q = ST.all_case(date_and_time[0], date_and_time[1])
     if q:
         print(q)
