@@ -240,7 +240,7 @@ class Student:
 
             for i in range(5):  # 모든 시간표를 돌아보며 공강 시간인데 중복되는게 있다면 뺀다.
                 for q in range(11):
-                    if [i+1, q+1] in [[wanted_day, wanted_time], [3, 5], [3, 6], [5, 5]]
+                    if [i+1, q+1] in [[wanted_day, wanted_time], [3, 5], [3, 6], [5, 5]]\
                             or (i == 4 and q > 6):
                         print("continuing")
                         continue
