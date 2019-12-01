@@ -89,6 +89,10 @@ def Main():
             except:
                 print("잘못된 입력입니다.")
 
+    if date_and_time[0] == 6 or date_and_time[0] == 7:
+        print("주말입니다. 기숙사에서 잘 찾아보세요... 화이팅!")
+        return
+
     print("찾고자 하는 학생의 이름을 입력하세요.")
     student_name = input(">")
 
@@ -106,9 +110,16 @@ def Main():
 bc.database = bc.load_info()
 
 check_Main = True
+bc.commandlist['Main' ] = Main
 
 while check_Main is True:
-    Main()
+    command = input('>')
+    try:
+        bc.commandlist[input]()
+    except KeyError:
+        print(' 해당하는 명령어는 존재하지 않는 명령어 입니다. ')
+
+
     Question_check = "\n다른 사람을 입력하겠습니까?\n"
     Answer_check = ["yes", "no"]
     check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check)

@@ -22,6 +22,7 @@ def dump_info(datas):  # 파일에 정보 업로드
 
 def print_help():  # 설명서 출력
     print(
+          'main   - 본격적인 검색을 시작합니다. \n''
           'setting - ID와 PASSWORD 를 설정합니다. \n'
           "gmail   - 로그인 방식을 'gmail을 통한 로그인' 으로 설정합니다.\n"
           "sign_in - 로그인 방식을 '일반적인 로그인 방식' 으로 설정합니다.\n"
