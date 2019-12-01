@@ -61,6 +61,8 @@ def Use_Subject_info():
 
     for sub_type in Student_sub:
         for sub in Student_sub_list:
+            if "프로젝트기반연구" in sub[0]:
+                continue
             if sub_type == SubjectType_LSI.return_Subject_Type(sub[0]):
                 new_sub_list.append(sub)
 
