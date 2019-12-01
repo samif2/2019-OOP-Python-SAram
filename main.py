@@ -13,7 +13,9 @@ print("Welcome! to our Program")
 print("Made by 'SAram' in 2019")
 print("=" * 20)
 print("SASA 학생의 위치를 쉽게 찾아주는 프로그램입니다.")
-print("=" * 20)
+print("=" * 30)
+print("help를 눌러 사용할 수 있는 명령어에 대해 알아보세요")
+print("=" * 30)
 
 
 def Main():
@@ -107,23 +109,24 @@ def Main():
         Get_Answers_for_Student(Student=student_name, Subject_list=q)
 
 
-bc.database = bc.load_info()
+bc.datalist = bc.load_info()
 
 check_Main = True
-bc.commandlist['Main' ] = Main
+bc.commandlist['Main'] = Main
 
-while check_Main is True:
+while True:
     command = input('>')
     try:
-        bc.commandlist[input]()
+        bc.commandlist[command]()
     except KeyError:
         print(' 해당하는 명령어는 존재하지 않는 명령어 입니다. ')
 
-
-    Question_check = "\n다른 사람을 입력하겠습니까?\n"
-    Answer_check = ["yes", "no"]
-    check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check)
-    if check_Main == 1:
-        check_Main = True
-    else:
-        check_Main = False
+    if command == 'Main':
+        while check_Main is True:
+            Question_check = "\n다른 사람을 입력하겠습니까?\n"
+            Answer_check = ["yes", "no"]
+            check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check)
+            if check_Main == 1:
+                check_Main = True
+            else:
+                check_Main = False
