@@ -114,7 +114,7 @@ bc.datalist = bc.load_info()
 check_Main = True
 bc.commandlist['Main'] = Main
 
-while True:
+while check_Main:
     command = input('>')
     try:
         bc.commandlist[command]()
@@ -122,11 +122,10 @@ while True:
         print(' 해당하는 명령어는 존재하지 않는 명령어 입니다. ')
 
     if command == 'Main':
-        while check_Main is True:
-            Question_check = "\n다른 사람을 입력하겠습니까?\n"
-            Answer_check = ["yes", "no"]
-            check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check)
-            if check_Main == 1:
-                check_Main = True
-            else:
-                check_Main = False
+        Question_check = "\n다른 사람을 입력하겠습니까?\n"
+        Answer_check = ["yes", "no"]
+        check_Main = Get_integer_Answer(Question=Question_check, menu_list=Answer_check)
+        if check_Main == 1:
+            check_Main = True
+        else:
+            check_Main = False
