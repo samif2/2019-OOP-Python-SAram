@@ -5,11 +5,12 @@ from selenium import webdriver
 from basic_command_LJH import load_info
 from SubjectType_LSI import *  # 학년 - 반정보 전용
 import time, pickle, sys
-import Web_LJS as wb
 
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
+options.add_argument("disable-gpu")
 
 database = load_info()
-
 
 class ControlTower:  # control 을 구성하는 함수를 만들기위한 명령어들을 모아놓은 클래스
     driver = None
@@ -232,7 +233,7 @@ class Student:
     def all_case(self, wanted_day, wanted_time):  # 원하는 날짜와 원하는 시간을 가져온다
         if self.calender[wanted_time-1][wanted_day-1]:
             print("공강시간입니다.공강실이나 도서관에 있을 확률이 높습니다.")
-            return
+            return None
         # 공강시간이라면 공강이라고 알려줌
 
         prototype_table = self.import_timetable(self.student_grade, wanted_day, wanted_time)
@@ -277,7 +278,6 @@ if __name__ == '__main__':
     '''
     # ControlTower 사용예시
     ## 아이디 입력하고 1초 기다림 + 비밀번호 입력하고 1초 기다림 + 로그인
-
 
     name = input("이름을 입력해 주세요: ")
     ST = Student(name)

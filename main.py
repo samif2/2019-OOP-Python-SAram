@@ -5,8 +5,8 @@ Main 이전에 사용자의 id와 pw를 받아, 여러 번 id, pw 를 받을 필
 """
 
 import SortingTime_LSI
-import SortingTime_LSI
-import control_command_LJH
+import control_command_LJH as cc
+import basic_command_LJH as bc
 from main_Functions import *
 
 print("Welcome! to our Program")
@@ -17,8 +17,6 @@ print("=" * 20)
 
 
 def Main():
-    print("찾고자 하는 학생의 학년을 입력하세요.")
-    student_grade = input('>')
     print("찾고자 하는 학생의 이름을 입력하세요.")
     student_name = input(">")
 
@@ -99,21 +97,21 @@ def Main():
                 time_minute = data_time[1]
                 date_and_time = SortingTime_LSI.Sort_Time(year=date_year, month=date_month, day=date_day,
                                                           hour=time_hour, minute=time_minute)
+
             except:
                 print("잘못된 입력입니다.")
 
-    # 형식을 Web에 사용한 것과 같이 바꿔줌
+    ST = cc.Student(student_name)
+    q = ST.all_case(date_and_time[0], date_and_time[1])
+    if q:
+        print(q)
+        Get_Answers_for_Student(Student=student_name, Subject_list=q)
 
-    # (Main 바깥에 있는 (지금은 71번째 줄 이후?) 부분에 id 와 pw를 입력받아 로그인 하는 부분이 있어야 함.)
 
-    # Web 파일 중 공강인지 아닌지 알아봄
-    # 공강이라면 (시간, 학년에 맞춰서) 도서관 혹은 공강실 등을 출력하고 종료 (return)
-    # 공강이 아니라면 해당 시간 시간표를 가져옴
-
-    Get_Answers_for_Student(Student=student_name, Subject_list=Subject_list)
-
+bc.database = bc.load_info()
 
 check_Main = True
+
 while check_Main is True:
     Main()
     Question_check = "다른 사람을 입력하겠습니까?"
