@@ -106,7 +106,9 @@ def Get_Subject_info_no():
         return Get_Answers_for_Student(Student_name, Student_sub_list)
     del Student_sub_list[Answer - 1]
 
-    return Get_Answers_for_Student(Student_name, Student_sub_list)
+    print("과목을 삭제하였습니다.")
+
+    return Print_all_Subject()
 
 
 def Print_Help():
