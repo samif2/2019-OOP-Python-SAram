@@ -221,8 +221,6 @@ class Student:
         accepted_class = ['', [1], [0, 2], [0, 3]]
         # 1학년은 [1], 2학년은 2, 2와 3의 0, 3학년은 3, 2와 3의 0 이 입력될경우 수강 가능한것으로 처리한다.
         for timez in time_table:
-            if timez[0] == '소리예술':
-                continue
 
             print(dict_Subject[timez[0]][0], accepted_class[self.student_grade])
             if dict_Subject[timez[0]][0] in accepted_class[self.student_grade]:
